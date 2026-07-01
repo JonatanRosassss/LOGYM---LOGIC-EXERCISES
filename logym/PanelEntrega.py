@@ -100,6 +100,3 @@ class PanelEntrega(wx.Panel):
     def click_comprobar(self, event):
         if hasattr(self, 'callback_comprobar') and self.callback_comprobar:
             self.callback_comprobar(self.obtener_output_usuario())
-
-    def texto_desactivado(self):
-        self.texto-self.texto_label_del_tiempo_restante("TIEMPO DESACTIVADO")

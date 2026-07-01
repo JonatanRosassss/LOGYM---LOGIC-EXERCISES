@@ -11,28 +11,28 @@ class PanelNavegacionFiltros(wx.Panel):
 
         #porque los diccionarios? porque es lo que mas facil es para manejar los json
         #si hiciera una clase despues lo tendria que parsear
-        # nuevo_ejercicio = {
-        #   "nombre": "Bit++",
-        #   "configuracion": {
-        #     "categoria": "Operadores",
-        #     "dificultad": "Facil",
-        #     "tiempo" : "5"
-        #   }
-        # }
-        # nuevo_ejercicio2 = {
-        #   "nombre": "Bit--",
-        #   "configuracion": {
-        #     "categoria": "Operadores",
-        #     "dificultad": "Facilss",
-        #     "tiempo" : "5"
+        nuevo_ejercicio = {
+          "nombre": "Bit++",
+          "configuracion": {
+            "categoria": "Operadores",
+            "dificultad": "Facil",
+            "tiempo" : "5"
+          }
+        }
+        nuevo_ejercicio2 = {
+          "nombre": "Bit--",
+          "configuracion": {
+            "categoria": "Operadores",
+            "dificultad": "Facilss",
+            "tiempo" : "5"
 
-        #   }
-        # }
+          }
+        }
         self.sizer_vertical_donde_se_van_acumulando_los_botones_de_ejercicios = None
         self.funcion_callback_que_se_ejecuta_al_elegir_un_ejercicio = None
         self.inicializar_todos_los_componentes_del_panel_de_filtros()
-        # self.agregar_ejercicio_en_la_lista_visual(nuevo_ejercicio)
-        # self.agregar_ejercicio_en_la_lista_visual(nuevo_ejercicio2)
+        self.agregar_ejercicio_en_la_lista_visual(nuevo_ejercicio)
+        self.agregar_ejercicio_en_la_lista_visual(nuevo_ejercicio2)
 
     def set_callback(self, funcion):
         self.funcion_callback_que_se_ejecuta_al_elegir_un_ejercicio = funcion
@@ -80,28 +80,15 @@ class PanelNavegacionFiltros(wx.Panel):
 
         texto_label_que_dice_temario = wx.StaticText(self, label="T E M A R I O", style=wx.ALIGN_CENTER_HORIZONTAL)
         texto_label_que_dice_temario.SetForegroundColour(wx.WHITE)
-        texto_label_que_dice_temario.SetFont(wx.Font(16, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
+        texto_label_que_dice_temario.SetFont(wx.Font(12, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD))
         sizer_contenedor_de_toda_la_columna_izquierda.Add(texto_label_que_dice_temario, 0, wx.BOTTOM | wx.ALIGN_CENTER, 5)
         #el arbol, esto es para dividir los , oculta la raiz, dice que no hay botones y dibuja un borde fino
         self.controlador_del_arbol_para_el_temario = wx.TreeCtrl(self, style=wx.TR_HIDE_ROOT | wx.TR_NO_BUTTONS | wx.BORDER_SIMPLE)
         self.controlador_del_arbol_para_el_temario.SetBackgroundColour(wx.Colour(220, 220, 220))
-
-        fuente_del_temario = wx.Font(16, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        self.controlador_del_arbol_para_el_temario.SetFont(fuente_del_temario)
-
         self.nodo_raiz_oculto_del_arbol_de_temas = self.controlador_del_arbol_para_el_temario.AddRoot("Root")
-        self.controlador_del_arbol_para_el_temario.Bind(wx.EVT_TREE_SEL_CHANGED, self.cuando_seleccionan_un_tema_en_el_arbol)
 
         sizer_contenedor_de_toda_la_columna_izquierda.Add(self.controlador_del_arbol_para_el_temario, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 20)
         self.SetSizer(sizer_contenedor_de_toda_la_columna_izquierda)
-
-    def cuando_seleccionan_un_tema_en_el_arbol(self, event):
-        item_seleccionado = event.GetItem()
-
-        texto_del_nodo = self.controlador_del_arbol_para_el_temario.GetItemText(item_seleccionado)
-        self.combo_desplegable_para_elegir_la_categoria.SetStringSelection(texto_del_nodo)
-        self.filtrado_archivo()
-
 
 #cada vez que se detecta un ejercicio nuevo, pum, los inyecta
     def agregar_ejercicio_en_la_lista_visual(self, datos_en_un_diccionario_del_ejercicio: dict):

@@ -5,7 +5,7 @@ from PanelEjercicio import PanelEjercicio
 from PanelEntrega import PanelEntrega
 
 class MainPanel(wx.Panel):
-#aprender las callbacks me mato, tuve que pedir guia a la ia de como usarlo pq sino ni idea.
+
     def __init__(self, parent):
         super().__init__(parent)
         self.SetBackgroundColour(wx.Colour(240, 240, 240))
@@ -48,7 +48,6 @@ class MainPanel(wx.Panel):
             dificultad_unique.add(d.get("configuracion", {}).get("dificultad", ""))
 
         self.menu_izquierdo_de_filtros.actualizar_opciones_filtros(list(categoria_unique), list(dificultad_unique))
-        self.menu_izquierdo_de_filtros.actualizar_temario(list(categoria_unique))
         self.menu_izquierdo_de_filtros.filtrado_archivo()
 
         if len(datos) > 0:
@@ -104,10 +103,6 @@ class MainPanel(wx.Panel):
         self.menu_izquierdo_de_filtros.actualizar_opciones_filtros(list(categoria_unique), list(dificultad_unique))
         # for cada_ejercicio in lista_ejercicios:
         #     self.menu_izquierdo_de_filtros.agregar_ejercicio_en_la_lista_visual(cada_ejercicio)
-
-        self.menu_izquierdo_de_filtros.actualizar_temario(list(categoria_unique))
-
-
         self.menu_izquierdo_de_filtros.filtrado_archivo()
 
 
@@ -166,11 +161,3 @@ class MainPanel(wx.Panel):
             wx.MessageBox("¡RESPUESTA CORRECTA !\n Resolviste el problema con éxito.", "Evaluación Exitosa", wx.OK | wx.ICON_INFORMATION)
         else:
             wx.MessageBox("RESPUESTA INCORRECTA .\nRevisa tu lógica e intenta de nuevo.", "Evaluación Fallida", wx.OK | wx.ICON_EXCLAMATION)
-
-
-    def apagar_temporizador(self):
-        self.temporizador_ejercicio.Stop()
-
-        self.panel_abajo_zona_entrega.texto_desactivado()
-
-        wx.MessageBox("Temporizador desactivado.")

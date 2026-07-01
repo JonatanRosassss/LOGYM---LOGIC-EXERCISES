@@ -27,13 +27,8 @@ class MainFrame(wx.Frame):
         # self.Bind(wx.EVT_MENU, self._on_click_planeta, id=102)
         self.Bind(wx.EVT_MENU, self.click_importar_json, id=wx.ID_OPEN)
         self.Bind(wx.EVT_MENU, self.cuando_el_usuario_toca_el_item_del_menu_planeta, id=wx.ID_NEW)
-        self.Bind(wx.EVT_MENU, self.cuando_guia_de_ayuda, id=201)
-        self.Bind(wx.EVT_MENU, self.cuando_desactivar_timer, id=103)
     def cuando_salir(self, event):
         self.Close(True)
-
-    def cuando_desactivar_timer(self, event):
-        self.panel_contenedor_principal_de_toda_la_interfaz.apagar_temporizador()
 
     def click_importar_json(self, event):
         self.panel_contenedor_principal_de_toda_la_interfaz
@@ -62,19 +57,8 @@ class MainFrame(wx.Frame):
 
     #tira la ventanita emergente de la info
     def cuando_about_me(self, event):
-        from VentanaAbout import VentanaAbout
-        ventana_creditos = VentanaAbout(self)
-        ventana_creditos.Show(True)
+        wx.MessageBox("LoGym v1.0\nSistema tatatat.", "Acerca de", wx.OK | wx.ICON_INFORMATION)
 
     def cuando_el_usuario_toca_el_item_del_menu_planeta(self, event):
         identificador_unico_del_item_que_se_toco = event.GetId()
         self.SetStatusText(f"Seleccionaste el ítem con ID: {identificador_unico_del_item_que_se_toco}")
-        from VentanaEjercicio import CrearEjercicio
-
-        ventana_formulario_nueva = CrearEjercicio(self, self.panel_contenedor_principal_de_toda_la_interfaz)
-        ventana_formulario_nueva.Show(True)
-    def cuando_guia_de_ayuda(self, event):
-        from VentanaGuia import VentanaGuia
-        # Pasamos 'self' como parent para que quede vinculada correctamente a la app principal
-        ventana_guia_nueva = VentanaGuia(self)
-        ventana_guia_nueva.Show(True)
